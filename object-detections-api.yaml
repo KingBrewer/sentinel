@@ -12,8 +12,8 @@ info:
 host: "sentinel.cardiffdevlunch.io"
 basePath: "/v1"
 tags:
-- name: "Detection"
-  description: "Objects detection"
+- name: "Detection API"
+  description: "Objects detection API"
 schemes:
 - "http"
 paths:
@@ -45,7 +45,7 @@ paths:
           in: formData
           type: string
           required: true
-          enum: ["jpeg", "png"]
+          enum: ["jpeg"]
       responses:
         '200':
           description: successful operation
@@ -61,9 +61,19 @@ paths:
           description: "Takes too much time to process an image. Back-off and try again later"
 definitions:
   DetectedObject:
-    type: string
+    type: object
     description: classification of detected object
-    enum: ["person", "car", "animal"]
+    properties:
+      class:
+        type: string
+        enum: ["person"]
+      probability:
+        type: number
+        format: float
+        example: 0.667
+        minimum: 0.0
+        maximum: 1.0
+        description: probability of classification (between 0.0 and 1.0)
   ApiResponse:
     title: Response of object detection algorithm
     description: Returns the result of processing of an image resource
