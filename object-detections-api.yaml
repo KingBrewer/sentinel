@@ -57,8 +57,6 @@ paths:
           description: "Unsupported media type. Only JPEG/PNG image formats are supported"
         '503': 
           description: "Service Unavailable - Neural Network's meltdown"
-        '504':
-          description: "Takes too much time to process an image. Back-off and try again later"
 definitions:
   DetectedObject:
     type: object
