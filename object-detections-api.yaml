@@ -3,13 +3,13 @@ info:
   description: "Extremely Simple And Portable Objects Detection API"
   version: "0.0.1"
   title: "Embedded Objects Detector And Classifier"
-  termsOfService: "https://cardiffdevlunch.io/terms/"
+  termsOfService: "https://cardiffdevlunch.co.uk/terms/"
   contact:
-    email: "product@cardiffdevlunch.io"
+    email: "product@cardiffdevlunch.co.uk"
   license:
     name: "Beerware (rev. 42)"
     url: "https://spdx.org/licenses/Beerware.html"
-host: "sentinel.cardiffdevlunch.io"
+host: "sentinel.cardiffdevlunch.co.uk"
 basePath: "/v1"
 tags:
 - name: "Detection API"
