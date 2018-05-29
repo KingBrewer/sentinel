@@ -1,0 +1,86 @@
+swagger: "2.0"
+info:
+  description: "Extremely Simple And Portable Objects Detection API"
+  version: "0.0.1"
+  title: "Embedded Objects Detector And Classifier"
+  termsOfService: "https://cardiffdevlunch.co.uk/terms/"
+  contact:
+    email: "product@cardiffdevlunch.co.uk"
+  license:
+    name: "Beerware (rev. 42)"
+    url: "https://spdx.org/licenses/Beerware.html"
+host: "sentinel.cardiffdevlunch.co.uk"
+basePath: "/v1"
+tags:
+- name: "Detection API"
+  description: "Objects detection API"
+schemes:
+- "http"
+paths:
+  /detectObjects:
+    post:
+      tags:
+        - Detection API
+      summary: Performs object detection on uploaded image
+      description: 'Performs simple and low accuracy object detection to help filter-out irrelevant parts of the video stream'
+      operationId: uploadFile
+      consumes:
+        - multipart/form-data
+      produces:
+        - application/json
+      parameters:
+        - name: image
+          in: formData
+          description: image to upload in order to perform object detection
+          required: true
+          type: file
+        - name: imageResolution
+          description: image resolution (Width x Height) in pixels
+          in: formData
+          required: true
+          type: string
+          enum: ["800x600", "640x480"]
+        - name: imageFormat
+          description: allowed image formats
+          in: formData
+          type: string
+          required: true
+          enum: ["jpeg"]
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '405':
+          description: "Invalid input parameters"
+        '415':
+          description: "Unsupported media type. Only JPEG/PNG image formats are supported"
+        '503': 
+          description: "Service Unavailable - Neural Network's meltdown"
+definitions:
+  DetectedObject:
+    type: object
+    description: classification of detected object
+    properties:
+      class:
+        type: string
+        enum: ["person"]
+      probability:
+        type: number
+        format: float
+        example: 0.667
+        minimum: 0.0
+        maximum: 1.0
+        description: probability of classification (between 0.0 and 1.0)
+  ApiResponse:
+    title: Response of object detection algorithm
+    description: Returns the result of processing of an image resource
+    type: object
+    properties:
+      detectedObjects:
+        type: array
+        items: 
+          $ref: '#/definitions/DetectedObject'
+externalDocs:
+  description: "Get in touch with the magnificent team"
+  url: "https://cardiffdevlunch.slack.com/messages/CAF0ZE40P"
