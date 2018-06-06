@@ -26,6 +26,7 @@ def get_model():
             'relu6': mobilenet.relu6,
             'DepthwiseConv2D': mobilenet.DepthwiseConv2D
         })
+        model._make_predict_function() # have to initialize before threading
         return model
     else:
         return model
